@@ -12,7 +12,7 @@ h1 {
 
 #example_1_Div_1 {
     position: relative;
-    height: 100px;
+    height: 120px;
     width: 100px;
     background-color: aqua;
     margin: auto;
@@ -20,8 +20,10 @@ h1 {
 
 #example_1_Div_2 {
     position: relative;
-    height: 50px;
-    width: 200px;
+    height: 100px;
+     width: 120px;
+    /* height: 50px;
+    width: 200px; */
     background-color: aqua;
     margin: auto;
 }
