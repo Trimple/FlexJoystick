@@ -47,14 +47,30 @@
             joystick1.handleMouseDown(event);
             document.getElementById("t1s1").innerHTML = "clicked!";
         }, false);
+        
+        document.getElementById("example_1_Div_2").addEventListener("mousedown", function(event){
+            document.onselectstart = () => {return false};
+            joystick2.handleMouseDown(event);
+            document.getElementById("t2s1").innerHTML = "clicked!";
+        }, false);
+
+        document.getElementById("example_1_Div_3").addEventListener("mousedown", function(event){
+            document.onselectstart = () => {return false};
+            joystick3.handleMouseDown(event);
+            document.getElementById("t3s1").innerHTML = "clicked!";
+        }, false);
 
         document.addEventListener("mousemove", function(event){
             joystick1.handleMouseMove(event);
+            joystick2.handleMouseMove(event);
+            joystick3.handleMouseMove(event);
         }, false);
 
         document.addEventListener("mouseup", function(event){
             document.onselectstart = () => {return true};
             joystick1.handleMouseUp(event);
+            joystick2.handleMouseUp(event);
+            joystick3.handleMouseUp(event);
         },false);
 
 
