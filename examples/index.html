@@ -81,12 +81,17 @@
 
         document.addEventListener("mouseup", function(event){
             document.onselectstart = () => {return true};
+
+            let listener = setInterval(function(){
+                joystick1.handleAnimation();
+                document.getElementById("t1s1").innerHTML = joystick1.getStickX();
+                document.getElementById("t1s2").innerHTML = joystick1.getStickY();
+            }, 10);
+            joystick1.enableAnimation(listener);
+            
             joystick1.handleMouseUp(event);
             joystick2.handleMouseUp(event);
             joystick3.handleMouseUp(event);
-
-            document.getElementById("t1s1").innerHTML = joystick1.getStickX();
-            document.getElementById("t1s2").innerHTML = joystick1.getStickY();
 
             document.getElementById("t2s1").innerHTML = joystick2.getStickX();
             document.getElementById("t2s2").innerHTML = joystick2.getStickY();

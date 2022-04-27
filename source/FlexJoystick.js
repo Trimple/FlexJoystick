@@ -24,7 +24,7 @@ class FlexJoystick {
     #widthOffset;
 
     #animationId = -1;
-    #animationStep = 0.15;
+    #animationStep = 0.1;
     #animationFrames = 0;
 
     #isPressed = false;
@@ -120,11 +120,11 @@ class FlexJoystick {
     }
 
     #moveStick(targetX, targetY) {
-        this.#currentX = targetX - this.#stickHeight / 2;
-        this.#currentY = targetY - this.#stickWidth / 2;
+        this.#currentX = targetX;
+        this.#currentY = targetY;
 
-        this.#stickObject.style.left = this.#currentX + "px";
-        this.#stickObject.style.top = this.#currentY + "px";
+        this.#stickObject.style.left = this.#currentX - this.#stickHeight / 2 + "px";
+        this.#stickObject.style.top = this.#currentY - this.#stickWidth / 2 + "px";
     }
 
     #moveWide(targetX, targetY) {
@@ -184,6 +184,13 @@ class FlexJoystick {
         else {
             this.#moveRound(clickX, clickY);
         }
+
+        if(this.#animationId > 0)
+        {
+            clearInterval(this.#animationId);
+            this.#animationId = -1;
+        }
+
     }
 
     handleMouseMove(event) {
@@ -211,7 +218,18 @@ class FlexJoystick {
         }
         this.#isPressed = false;
 
-        this.#moveStick(this.#centerX, this.#centerY);
+        if(this.#animationFrames === 0)
+        {
+            if (this.#joystickType === "long") {
+                this.#moveLong(this.#centerX, this.#centerY);
+            }
+            else if (this.#joystickType === "wide") {
+                this.#moveWide(this.#centerX, this.#centerY);
+            }
+            else {
+                this.#moveRound(this.#centerX, this.#centerY)
+            }
+        }
     }
 
     enableAnimation(animationId) {
@@ -223,16 +241,42 @@ class FlexJoystick {
         if (this.#animationId === -1) {
             return;
         }
-
+        
         if (this.#animationFrames === 0) {
             this.#moveStick(this.#centerX, this.#centerY);
+            clearInterval(this.#animationId);
         }
         else {
             this.#animationFrames -= 1;
-            
+            let targetX = this.#currentX + (this.#centerX - this.#currentX)*this.#animationStep;
+            let targetY = this.#currentY + (this.#centerY - this.#currentY)*this.#animationStep;
+
+            if(targetX > this.#centerX)
+            {
+                targetX = Math.floor(targetX);
+            }
+            else{
+                targetX = Math.ceil(targetX);
+            }
+            if(targetY > this.#centerY)
+            {
+                targetY =  Math.floor(targetY);
+            }
+            else{
+                targetY =  Math.ceil(targetY);
+            }
+
+            if (this.#joystickType === "long") {
+                this.#moveLong(targetX, targetY);
+            }
+            else if (this.#joystickType === "wide") {
+                this.#moveWide(targetX, targetY);
+            }
+            else {
+                this.#moveRound(targetX, targetY)
+            }
+
         }
-
-
     }
 
 
@@ -250,11 +294,11 @@ class FlexJoystick {
     }
 
     getStickX() {
-        return this.#currentX + this.#stickWidth / 2 - this.#parentWidth / 2;
+        return this.#currentX - this.#parentWidth / 2;
     }
 
     getStickY() {
-        return this.#currentY + this.#stickHeight / 2 - this.#parentHeight / 2;
+        return this.#currentY - this.#parentHeight / 2;
     }
 
     getStickAngle() {
