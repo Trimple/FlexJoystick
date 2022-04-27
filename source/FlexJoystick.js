@@ -1,6 +1,4 @@
 class FlexJoystick {
-    #parentId;
-
     #parentObject;
     outlineObject;
     stickObject;
@@ -15,7 +13,6 @@ class FlexJoystick {
 
 
     constructor(parentId) {
-        this.#parentId = parentId;
         this.#parentObject = document.getElementById(parentId);
         if (this.#parentObject.tagName != "DIV") {
             return;
