@@ -11,6 +11,8 @@ class FlexJoystick {
 
     #currentX;
     #currentY;
+    #currentAngle;
+    #currentRadius;
 
     #parentWidth;
     #parentHeight;
@@ -141,19 +143,41 @@ class FlexJoystick {
     }
 
     #moveRound(targetX, targetY) {
-        if (targetX < this.#stickWidth / 2 + this.#widthOffset) {
-            targetX = this.#stickWidth / 2 + this.#widthOffset;
-        }
-        if (targetX > this.#parentWidth - this.#stickWidth / 2 - this.#widthOffset) {
-            targetX = this.#parentWidth - this.#stickWidth / 2 - this.#widthOffset;
+        this.#currentAngle = Math.atan2(-1 *( targetY - this.#centerY), targetX - this.#centerX) / (Math.PI) * 180 ;
+        if(this.#currentAngle < 0)
+        {
+            this.#currentAngle += 360;
         }
 
-        if (targetY < this.#stickHeight / 2 + this.#heightOffset) {
-            targetY = this.#stickHeight / 2 + this.#heightOffset;
+        this.#currentRadius = Math.sqrt(Math.pow(targetY - this.#centerY ,2) + Math.pow(targetX - this.#centerX,2)) / ((this.#outlineWidth - this.#stickWidth)/2);
+
+        if(this.#currentRadius > 1)
+        {
+            targetX = Math.cos(this.#currentAngle / 180 * Math.PI);
+            targetY = Math.sin(this.#currentAngle / 180 * Math.PI);
         }
-        if (targetY > this.#parentHeight - this.#stickHeight / 2 - this.#heightOffset) {
-            targetY = this.#parentHeight - this.#stickHeight / 2 - this.#heightOffset;
-        }
+
+
+        // if (targetX < this.#stickWidth / 2 + this.#widthOffset) {
+        //     targetX = this.#stickWidth / 2 + this.#widthOffset;
+        // }
+        // if (targetX > this.#parentWidth - this.#stickWidth / 2 - this.#widthOffset) {
+        //     targetX = this.#parentWidth - this.#stickWidth / 2 - this.#widthOffset;
+        // }
+
+        // if (targetY < this.#stickHeight / 2 + this.#heightOffset) {
+        //     targetY = this.#stickHeight / 2 + this.#heightOffset;
+        // }
+        // if (targetY > this.#parentHeight - this.#stickHeight / 2 - this.#heightOffset) {
+        //     targetY = this.#parentHeight - this.#stickHeight / 2 - this.#heightOffset;
+        // }
+
+
+        // #currentAngle;
+        // #currentRadius;
+
+        
+
 
         this.#moveStick(targetX, targetY);
     }
@@ -222,4 +246,13 @@ class FlexJoystick {
     getStickY() {
         return this.#currentY + this.#stickHeight / 2 - this.#parentHeight / 2;
     }
+
+    getStickAngle() {
+        return this.#currentAngle;
+    }
+
+    getStickRadius() {
+        return this.#currentRadius;
+    }
+
 }
