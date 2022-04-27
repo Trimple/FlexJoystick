@@ -23,6 +23,10 @@ class FlexJoystick {
     #heightOffset;
     #widthOffset;
 
+    #animationId = -1;
+    #animationStep = 0.15;
+    #animationFrames = 0;
+
     #isPressed = false;
     #touchId = -1;
 
@@ -153,31 +157,14 @@ class FlexJoystick {
 
         if(this.#currentRadius > 1)
         {
-            targetX = Math.cos(this.#currentAngle / 180 * Math.PI);
-            targetY = Math.sin(this.#currentAngle / 180 * Math.PI);
+            let angle = this.#currentAngle;
+            if(angle > 180)
+            {
+                angle -= 360;
+            }
+            targetX = Math.cos(angle / 180 * Math.PI)*((this.#outlineWidth - this.#stickWidth)/2) + this.#centerX;
+            targetY = -1*(Math.sin(angle / 180 * Math.PI)*((this.#outlineHeight - this.#stickHeight)/2)) + this.#centerY;
         }
-
-
-        // if (targetX < this.#stickWidth / 2 + this.#widthOffset) {
-        //     targetX = this.#stickWidth / 2 + this.#widthOffset;
-        // }
-        // if (targetX > this.#parentWidth - this.#stickWidth / 2 - this.#widthOffset) {
-        //     targetX = this.#parentWidth - this.#stickWidth / 2 - this.#widthOffset;
-        // }
-
-        // if (targetY < this.#stickHeight / 2 + this.#heightOffset) {
-        //     targetY = this.#stickHeight / 2 + this.#heightOffset;
-        // }
-        // if (targetY > this.#parentHeight - this.#stickHeight / 2 - this.#heightOffset) {
-        //     targetY = this.#parentHeight - this.#stickHeight / 2 - this.#heightOffset;
-        // }
-
-
-        // #currentAngle;
-        // #currentRadius;
-
-        
-
 
         this.#moveStick(targetX, targetY);
     }
@@ -226,6 +213,29 @@ class FlexJoystick {
 
         this.#moveStick(this.#centerX, this.#centerY);
     }
+
+    enableAnimation(animationId) {
+        this.#animationId = animationId;
+        this.#animationFrames = 50;
+    }
+
+    handleAnimation() {
+        if (this.#animationId === -1) {
+            return;
+        }
+
+        if (this.#animationFrames === 0) {
+            this.#moveStick(this.#centerX, this.#centerY);
+        }
+        else {
+            this.#animationFrames -= 1;
+            
+        }
+
+
+    }
+
+
 
     handleTouchStart(event) {
 
