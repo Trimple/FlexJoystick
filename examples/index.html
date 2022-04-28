@@ -58,7 +58,7 @@
             joystick1.handleMouseDown(event);
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s3").innerHTML = joystick1.getDirection(8);
+            document.getElementById("t1s3").innerHTML = joystick1.getDirection();
         }, false);
         
         document.getElementById("example_1_Div_2").addEventListener("mousedown", function(event){
@@ -72,6 +72,9 @@
         document.getElementById("example_1_Div_3").addEventListener("mousedown", function(event){
             document.onselectstart = () => {return false};
             joystick3.handleMouseDown(event);
+            document.getElementById("t3s1").innerHTML = joystick3.getStickX().toFixed(2);
+            document.getElementById("t3s2").innerHTML = joystick3.getStickY().toFixed(2);
+            document.getElementById("t3s3").innerHTML = joystick3.getDirection();
         }, false);
 
         document.addEventListener("mousemove", function(event){
@@ -81,14 +84,15 @@
 
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s3").innerHTML = joystick1.getDirection(8);
+            document.getElementById("t1s3").innerHTML = joystick1.getDirection();
 
             document.getElementById("t2s1").innerHTML = joystick2.getStickX().toFixed(2);
             document.getElementById("t2s2").innerHTML = joystick2.getStickY().toFixed(2);
             document.getElementById("t2s3").innerHTML = joystick2.getDirection();
 
-            document.getElementById("t3s1").innerHTML = joystick3.getStickX();
-            document.getElementById("t3s2").innerHTML = joystick3.getStickY();
+            document.getElementById("t3s1").innerHTML = joystick3.getStickX().toFixed(2);
+            document.getElementById("t3s2").innerHTML = joystick3.getStickY().toFixed(2);
+            document.getElementById("t3s3").innerHTML = joystick3.getDirection();
 
         }, false);
 
@@ -97,8 +101,9 @@
 
             let listener = setInterval(function(){
                 joystick1.handleAnimation();
-                document.getElementById("t1s1").innerHTML = joystick1.getDirection(4);
-                document.getElementById("t1s2").innerHTML = joystick1.getStickY();
+                document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+                document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+                document.getElementById("t1s3").innerHTML = joystick1.getDirection();
             }, 10);
             joystick1.enableAnimation(listener);
             
@@ -106,11 +111,13 @@
             joystick2.handleMouseUp(event, true);
             joystick3.handleMouseUp(event, true);
 
-            document.getElementById("t2s1").innerHTML = joystick2.getStickX();
-            document.getElementById("t2s2").innerHTML = joystick2.getStickY();
+            document.getElementById("t2s1").innerHTML = joystick2.getStickX().toFixed(2);
+            document.getElementById("t2s2").innerHTML = joystick2.getStickY().toFixed(2);
+            document.getElementById("t2s3").innerHTML = joystick2.getDirection();
 
-            document.getElementById("t3s1").innerHTML = joystick3.getStickX();
-            document.getElementById("t3s2").innerHTML = joystick3.getStickY();
+            document.getElementById("t3s1").innerHTML = joystick3.getStickX().toFixed(2);
+            document.getElementById("t3s2").innerHTML = joystick3.getStickY().toFixed(2);
+            document.getElementById("t3s3").innerHTML = joystick3.getDirection();
 
         },false);
 

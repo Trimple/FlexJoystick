@@ -371,13 +371,12 @@ class FlexJoystick {
     }
 
     /**
-     * 
      * @param {number} directionConfiguration 
      * @returns stick current direction as a string.
      */
     getDirection(directionConfiguration) {
-        if (directionConfiguration != 8 && directionConfiguration != 4 && directionConfiguration != 2 && directionConfiguration != 20) {
-            return "error";
+        if (this.#joystickType == "round" && directionConfiguration != 8 && directionConfiguration != 4 && directionConfiguration != 2 && directionConfiguration != 20) {
+            return this.#getRoundDirection(directionConfiguration);
         }
 
         if (this.#joystickType == "long") {
@@ -420,6 +419,10 @@ class FlexJoystick {
         return "L";
     }
 
+    /**
+     * @param {number} numberOfDirections 
+     * @returns 
+     */
     #getRoundDirection(numberOfDirections) {
         if (this.#currentRadius < this.#activationThreshold) {
             return "C";
@@ -462,10 +465,6 @@ class FlexJoystick {
         }
         return answer;
     }
-
-
-
-
 
     getStickX() {
         if (this.#isPressed === false && this.#touchId === -1 && this.#returnCanceled === false) {
