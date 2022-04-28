@@ -37,6 +37,9 @@
         </tr>
     </table>
 
+    <button onclick="test()">click me</button>
+    <span id="click">2</span>
+
     <script>
         let joystick1 = new FlexJoystick("example_1_Div_1");
         let joystick2 = new FlexJoystick("example_1_Div_2");
@@ -87,9 +90,9 @@
             }, 10);
             joystick1.enableAnimation(listener);
             
-            joystick1.handleMouseUp(event);
-            joystick2.handleMouseUp(event);
-            joystick3.handleMouseUp(event);
+            joystick1.handleMouseUp(event, true);
+            joystick2.handleMouseUp(event, true);
+            joystick3.handleMouseUp(event, false);
 
             document.getElementById("t2s1").innerHTML = joystick2.getStickX();
             document.getElementById("t2s2").innerHTML = joystick2.getStickY();
@@ -99,7 +102,16 @@
 
         },false);
 
-
+        function test(){
+            // document.getElementById("example_1_Div_1Outline").style.background = 'black';
+            // document.getElementById("example_1_Div_1").style.width = '202px';
+            // document.getElementById("example_1_Div_1Stick").style.width = '50px';
+            document.getElementById("example_1_Div_3Outline").style.borderRadius = '15px';
+            document.getElementById("example_1_Div_3Stick").style.borderRadius = '10px';
+            document.getElementById("example_1_Div_3Stick").style.width = '100px';
+            joystick3.updateJoystickDimensions();
+            // document.getElementById("click").innerHTML = document.getElementById("example_1_Div_1Stick").clientWidth;
+        }
 
             // document.getElementById("example_1_Div_3Outline").style.background = "red"
 
