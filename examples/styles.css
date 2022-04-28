@@ -12,8 +12,8 @@ h1 {
 
 #example_1_Div_1 {
     position: relative;
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     margin: auto;
 }
 
@@ -34,11 +34,11 @@ h1 {
 }
 
 .spanTd {
-    width: 30px;
+    width: 40px;
     text-align: left;
 }
 
 .textTd {
-    width: 30px;
+    width: 40px;
     text-align: right;
 }

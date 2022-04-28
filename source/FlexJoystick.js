@@ -22,6 +22,7 @@ class FlexJoystick {
     #heightOffset;
     #widthOffset;
 
+    #activationThreshold = 0.4;
     #returnCanceled = false;
     #animationId = -1;
     #animationStep = 0.1;
@@ -30,6 +31,10 @@ class FlexJoystick {
     #isPressed = false;
     #touchId = -1;
 
+    /**
+     * @param {string} parentId 
+     * @returns 
+     */
     constructor(parentId) {
         this.#parentObject = document.getElementById(parentId);
         if (this.#parentObject.tagName != "DIV") {
@@ -331,7 +336,6 @@ class FlexJoystick {
             else {
                 this.#moveRound(targetX, targetY)
             }
-
         }
     }
 
@@ -354,6 +358,114 @@ class FlexJoystick {
 
         this.#moveStick(this.#centerX, this.#centerY);
     }
+
+    /**
+     * @param {number} threshold 
+     */
+    setActivationThreshold(threshold) {
+        if (threshold < 0 || threshold > 1) {
+            return;
+        }
+
+        this.#activationThreshold = threshold;
+    }
+
+    /**
+     * 
+     * @param {number} directionConfiguration 
+     * @returns stick current direction as a string.
+     */
+    getDirection(directionConfiguration) {
+        if (directionConfiguration != 8 && directionConfiguration != 4 && directionConfiguration != 2 && directionConfiguration != 20) {
+            return "error";
+        }
+
+        if (this.#joystickType == "long") {
+            return this.#getLongDirection();
+        }
+        else if (this.#joystickType == "wide") {
+            return this.#getWideDirection();
+        }
+
+        if (directionConfiguration === 2) {
+            return this.#getLongDirection();
+        }
+        else if (directionConfiguration === 20) {
+            return this.#getWideDirection();
+        }
+
+        return this.#getRoundDirection(directionConfiguration);
+    }
+
+    #getLongDirection() {
+        if (Math.abs(this.#currentRadius) < this.#activationThreshold) {
+            return "C";
+        }
+
+        if (this.#currentAngle <= 180) {
+            return "U";
+        }
+        return "D";
+        s
+    }
+
+    #getWideDirection() {
+        if (Math.abs(this.#currentRadius) < this.#activationThreshold) {
+            return "C";
+        }
+
+        if (this.#currentAngle <= 90 || this.#currentAngle > 270) {
+            return "R";
+        }
+        return "L";
+    }
+
+    #getRoundDirection(numberOfDirections) {
+        if (this.#currentRadius < this.#activationThreshold) {
+            return "C";
+        }
+
+        let answer;
+
+        if (numberOfDirections === 4)
+        {
+            if (this.#currentAngle >= 45 && this.#currentAngle < 135) {
+                answer = "U";
+            } else if (this.#currentAngle >= 135 && this.#currentAngle < 225) {
+                answer = "L";
+            } else if (this.#currentAngle >= 225 && this.#currentAngle < 315) {
+                answer = "D";
+            }
+            else {
+                answer = "R";
+            }
+            return answer;
+        }
+
+        if ((this.#currentAngle >= 22.5 && this.#currentAngle < 67.5)) {
+            answer = "UR"
+        } else if ((this.#currentAngle >= 67.5 && this.#currentAngle < 112.5)){
+            answer = "U";
+        } else if ((this.#currentAngle >= 112.5 && this.#currentAngle < 157.5)){
+            answer = "UL";
+        } else if ((this.#currentAngle >= 157.5 && this.#currentAngle < 202.5)){
+            answer = "L";
+        } else if ((this.#currentAngle >= 202.5 && this.#currentAngle < 247.5)){
+            answer = "DL";
+        } else if ((this.#currentAngle >= 247.5 && this.#currentAngle < 292.5)){
+            answer = "D";
+        } else if ((this.#currentAngle >= 292.5 && this.#currentAngle < 327.5)){
+            answer = "DR";
+        }
+        else{
+            answer = "R";
+        }
+        return answer;
+    }
+
+
+
+
 
     getStickX() {
         if (this.#isPressed === false && this.#touchId === -1 && this.#returnCanceled === false) {
