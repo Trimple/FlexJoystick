@@ -92,7 +92,7 @@
             
             joystick1.handleMouseUp(event, true);
             joystick2.handleMouseUp(event, true);
-            joystick3.handleMouseUp(event, false);
+            joystick3.handleMouseUp(event, true);
 
             document.getElementById("t2s1").innerHTML = joystick2.getStickX();
             document.getElementById("t2s2").innerHTML = joystick2.getStickY();
@@ -104,12 +104,13 @@
 
         function test(){
             // document.getElementById("example_1_Div_1Outline").style.background = 'black';
-            // document.getElementById("example_1_Div_1").style.width = '202px';
+            document.getElementById("example_1_Div_1").style.width = '300px';
             // document.getElementById("example_1_Div_1Stick").style.width = '50px';
-            document.getElementById("example_1_Div_3Outline").style.borderRadius = '15px';
-            document.getElementById("example_1_Div_3Stick").style.borderRadius = '10px';
-            document.getElementById("example_1_Div_3Stick").style.width = '100px';
-            joystick3.updateJoystickDimensions();
+            // document.getElementById("example_1_Div_3Outline").style.borderRadius = '15px';
+            // document.getElementById("example_1_Div_3Stick").style.borderRadius = '10px';
+            // document.getElementById("example_1_Div_3Stick").style.width = '100px';
+            // joystick3.updateJoystickDimensions();
+            joystick1.resetJoystickDimensions();
             // document.getElementById("click").innerHTML = document.getElementById("example_1_Div_1Stick").clientWidth;
         }
 

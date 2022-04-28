@@ -3,8 +3,6 @@ class FlexJoystick {
     #outlineObject;
     #stickObject;
 
-    #returnCanceled;
-
     #joystickType;
 
     #centerX;
@@ -24,6 +22,7 @@ class FlexJoystick {
     #heightOffset;
     #widthOffset;
 
+    #returnCanceled = false;
     #animationId = -1;
     #animationStep = 0.1;
     #animationFrames = 0;
@@ -41,7 +40,6 @@ class FlexJoystick {
 
         this.#createStickObject();
     }
-
 
     #createOutlineObject() {
         this.#outlineObject = document.createElement("div");
@@ -100,6 +98,20 @@ class FlexJoystick {
         this.#parentObject.appendChild(this.#stickObject);
 
         this.#stickObject.style.position = "absolute";
+
+        this.#resetStickDimensions();
+        this.#updateStickDimensions();
+
+        this.#currentRadius = 0;
+        this.#currentAngle = 0;
+
+        this.#stickObject.style.borderRadius = "1000px";
+        this.#stickObject.style.background = "grey";
+
+        this.#moveStick(this.#centerX, this.#centerY);
+    }
+
+    #resetStickDimensions() {
         if (this.#joystickType === "round") {
             this.#stickObject.style.width = Math.min(this.#outlineWidth, this.#outlineHeight) * 0.4 + "px";
             this.#stickObject.style.height = this.#stickObject.clientWidth + "px";
@@ -107,16 +119,6 @@ class FlexJoystick {
             this.#stickObject.style.width = Math.min(this.#outlineWidth, this.#outlineHeight) * 0.8 + "px";
             this.#stickObject.style.height = this.#stickObject.clientWidth + "px";
         }
-
-        this.#currentRadius = 0;
-        this.#currentAngle = 0;
-
-        this.#updateStickDimensions();
-
-        this.#stickObject.style.borderRadius = "1000px";
-        this.#stickObject.style.background = "grey";
-
-        this.#moveStick(this.#centerX, this.#centerY);
     }
 
     #updateStickDimensions() {
@@ -134,8 +136,9 @@ class FlexJoystick {
 
     #moveWide(targetX, targetY) {
         let beautyOffset = (this.#parentHeight - this.#stickWidth) / 2;
+        let baseRadius = (this.#outlineWidth - this.#stickWidth - beautyOffset * 2) / 2;
 
-        this.#currentRadius = (targetX - this.#centerX) / ((this.#outlineWidth - this.#stickWidth - beautyOffset * 2) / 2);
+        this.#currentRadius = (targetX - this.#centerX) / baseRadius;
 
         if (targetX > this.#parentWidth - this.#stickWidth / 2 - this.#widthOffset - beautyOffset) {
             targetX = this.#parentWidth - this.#stickWidth / 2 - this.#widthOffset - beautyOffset;
@@ -203,22 +206,6 @@ class FlexJoystick {
         this.#moveStick(targetX, targetY);
     }
 
-    updateJoystickDimensions()
-    {
-        this.#updateStickDimensions();
-
-        this.#updateOutlineDimensions();
-
-        this.#moveStick(this.#centerX, this.#centerY);
-    }
-    
-    resetJOystickDimensions()
-    {
-        
-        this.#moveStick(this.#centerX, this.#centerY);
-    }
-
-
     handleMouseDown(event) {
         this.#isPressed = true;
         this.#returnCanceled = false;
@@ -240,7 +227,6 @@ class FlexJoystick {
             clearInterval(this.#animationId);
             this.#animationId = -1;
         }
-
     }
 
     handleMouseMove(event) {
@@ -269,8 +255,7 @@ class FlexJoystick {
         this.#isPressed = false;
 
         this.#returnCanceled = !returnToCenter;
-        if(this.#returnCanceled === true)
-        {
+        if (this.#returnCanceled === true) {
             return;
         }
 
@@ -285,6 +270,18 @@ class FlexJoystick {
                 this.#moveRound(this.#centerX, this.#centerY)
             }
         }
+    }
+
+    handleTouchStart(event) {
+
+    }
+
+    handleTouchMove(event) {
+
+    }
+
+    handleTouchEnd(event) {
+
     }
 
     enableAnimation(animationId) {
@@ -338,17 +335,24 @@ class FlexJoystick {
         }
     }
 
+    updateJoystickDimensions() {
+        this.#updateStickDimensions();
 
-    handleTouchStart(event) {
+        this.#updateOutlineDimensions();
 
+        this.#moveStick(this.#centerX, this.#centerY);
     }
 
-    handleTouchMove(event) {
+    resetJoystickDimensions() {
+        this.#updateStickDimensions();
 
-    }
+        this.#updateOutlineDimensions();
 
-    handleTouchEnd(event) {
+        this.#resetStickDimensions();
 
+        this.#updateStickDimensions();
+
+        this.#moveStick(this.#centerX, this.#centerY);
     }
 
     getStickX() {
@@ -378,5 +382,4 @@ class FlexJoystick {
         }
         return this.#currentRadius;
     }
-
 }
