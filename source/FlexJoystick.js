@@ -107,6 +107,9 @@ class FlexJoystick {
             this.#stickObject.style.height = this.#stickObject.clientWidth + "px";
         }
 
+        this.#currentRadius = 0;
+        this.#currentAngle = 0;
+
         this.#updateStickDimensions();
 
         this.#stickObject.style.borderRadius = "100px";
@@ -131,6 +134,10 @@ class FlexJoystick {
     #moveWide(targetX, targetY) {
 
         let beautyOffset = (this.#parentHeight * (1 - this.#stickSizeFactor*2))/2;
+        
+        // this.#currentAngle 
+        this.#currentRadius = (targetX - this.#centerX)/((this.#outlineWidth - this.#stickWidth - beautyOffset * 2)/2);
+        
         if(targetX > this.#parentWidth - this.#stickWidth/2 - this.#widthOffset - beautyOffset)
         {
             targetX = this.#parentWidth - this.#stickWidth/2 - this.#widthOffset - beautyOffset;
@@ -139,6 +146,8 @@ class FlexJoystick {
         {
             targetX = this.#widthOffset + this.#stickWidth/2 + beautyOffset;
         }
+
+
 
         targetY = this.#centerY;
 
@@ -280,6 +289,12 @@ class FlexJoystick {
             else{
                 targetY =  Math.ceil(targetY);
             }
+
+            if(Math.abs(targetX - this.#centerX) < 1 && Math.abs(targetY - this.#centerY) < 1)
+            {
+                this.#animationFrames = 0;
+            }
+
 
             if (this.#joystickType === "long") {
                 this.#moveLong(targetX, targetY);
