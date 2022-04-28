@@ -59,8 +59,6 @@
         document.getElementById("example_1_Div_3").addEventListener("mousedown", function(event){
             document.onselectstart = () => {return false};
             joystick3.handleMouseDown(event);
-            document.getElementById("t3s1").innerHTML = joystick3.getStickX();
-            document.getElementById("t3s2").innerHTML = joystick3.getStickY();
         }, false);
 
         document.addEventListener("mousemove", function(event){

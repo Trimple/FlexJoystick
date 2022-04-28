@@ -12,19 +12,17 @@ h1 {
 
 #example_1_Div_1 {
     position: relative;
-    height: 120px;
+    height: 100px;
     width: 100px;
-    background-color: aqua;
     margin: auto;
 }
 
 #example_1_Div_2 {
     position: relative;
-    height: 100px;
-     width: 120px;
-    /* height: 50px;
-    width: 200px; */
-    background-color: aqua;
+    /* height: 100px;
+     width: 120px; */
+    height: 50px;
+    width: 200px;
     margin: auto;
 }
 
@@ -32,7 +30,6 @@ h1 {
     position: relative;
     height: 200px;
     width: 50px;
-    background-color: aqua;
     margin: auto;
 }
 

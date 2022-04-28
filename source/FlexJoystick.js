@@ -52,7 +52,8 @@ class FlexJoystick {
         this.updateObjectDimensions();
 
         this.#outlineObject.style.borderRadius = "100px";
-        this.#outlineObject.style.border = "2px solid"
+        this.#outlineObject.style.background ="lightgrey";
+        this.#outlineObject.style.opacity = "30%";
     }
 
     updateObjectDimensions() {
@@ -109,7 +110,7 @@ class FlexJoystick {
         this.#updateStickDimensions();
 
         this.#stickObject.style.borderRadius = "100px";
-        this.#stickObject.style.background = "red";
+        this.#stickObject.style.background = "grey";
 
         this.#moveStick(this.#centerX, this.#centerY);
     }
@@ -128,22 +129,36 @@ class FlexJoystick {
     }
 
     #moveWide(targetX, targetY) {
-        // if (targetX > this.#parentObject.clientWidth - this.#stickWidth / 2) {
-        //     targetX = this.#parentObject.clientWidth - this.#stickWidth / 2;
-        // }
-        // else if (targetX < this.#stickWidth / 2) {
-        //     targetX = this.#stickWidth / 2;
-        // }
-        // targetY = this.#height / 2;
 
-        // this.#moveStick(targetX, targetY);
+        let beautyOffset = (this.#parentHeight * (1 - this.#stickSizeFactor*2))/2;
+        if(targetX > this.#parentWidth - this.#stickWidth/2 - this.#widthOffset - beautyOffset)
+        {
+            targetX = this.#parentWidth - this.#stickWidth/2 - this.#widthOffset - beautyOffset;
+        }
+        else if(targetX < this.#widthOffset + this.#stickWidth/2 + beautyOffset)
+        {
+            targetX = this.#widthOffset + this.#stickWidth/2 + beautyOffset;
+        }
 
-        // // this.#stickObject.style.left = targetX - this.#stickWidth/2 + "px";
-        // // this.#stickObject.style.top = targetY - this.#stickHeight/2 + "px";
+        targetY = this.#centerY;
+
+        this.#moveStick(targetX, targetY);
     }
 
     #moveLong(targetX, targetY) {
+        let beautyOffset = (this.#parentWidth * (1 - this.#stickSizeFactor*2))/2;
+        if(targetY > this.#parentHeight - this.#stickHeight/2 - this.#heightOffset - beautyOffset)
+        {
+            targetY = this.#parentHeight - this.#stickHeight/2 - this.#heightOffset - beautyOffset;
+        }
+        else if(targetY < this.#heightOffset + this.#stickHeight/2 + beautyOffset)
+        {
+            targetY = this.#heightOffset + this.#stickHeight/2 + beautyOffset;
+        }
 
+        targetX = this.#centerX;
+
+        this.#moveStick(targetX, targetY);
     }
 
     #moveRound(targetX, targetY) {
@@ -280,7 +295,6 @@ class FlexJoystick {
     }
 
 
-
     handleTouchStart(event) {
 
     }
@@ -294,18 +308,34 @@ class FlexJoystick {
     }
 
     getStickX() {
+        if(this.#isPressed === false && this.#touchId === -1)
+        {
+            return 0;
+        }
         return this.#currentX - this.#parentWidth / 2;
     }
 
     getStickY() {
-        return this.#currentY - this.#parentHeight / 2;
+        if(this.#isPressed === false && this.#touchId === -1)
+        {
+            return 0;
+        }
+        return -1*(this.#currentY - this.#parentHeight / 2);
     }
 
     getStickAngle() {
+        if(this.#isPressed === false && this.#touchId === -1)
+        {
+            return 0;
+        }
         return this.#currentAngle;
     }
 
     getStickRadius() {
+        if(this.#isPressed === false && this.#touchId === -1)
+        {
+            return 0;
+        }
         return this.#currentRadius;
     }
 
