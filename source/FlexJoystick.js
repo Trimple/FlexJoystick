@@ -560,8 +560,7 @@ class FlexJoystick {
         return this.#currentRadius;
     }
 
-    getTouchId()
-    {
+    getId() {
         return this.#touchId;
     }
 }
