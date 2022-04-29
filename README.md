@@ -8,7 +8,7 @@ The class supports 3 types of joysticks:
 
 This is the default Joysticks design you can expect:
 
-![default design showcase]();
+![default design showcase](https://github.com/Trimple/FlexJoystick/blob/main/images/defaultJoysticksDesignExample.jpg);
 
 You can play around with live examples [here](https://trimple.github.io/FlexJoystick/).
 
