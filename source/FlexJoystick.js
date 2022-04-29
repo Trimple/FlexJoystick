@@ -281,6 +281,7 @@ class FlexJoystick {
         if (this.#touchId >= 0) {
             return;
         }
+        event.preventDefault();
         this.#touchId = event.changedTouches[0].identifier;
         this.#returnCanceled = false;
 
@@ -349,7 +350,7 @@ class FlexJoystick {
                         this.#moveRound(this.#centerX, this.#centerY)
                     }
                 }
-                
+
                 return;
             }
         }
