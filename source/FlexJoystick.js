@@ -305,9 +305,9 @@ class FlexJoystick {
     }
 
     handleTouchMove(event) {
-        for(touch in event.changedTouches)
-        {
-            if(touch.identifier === this.#touchId)
+        // for(touch in event.changedTouches)
+        // {
+            if(event.changedTouches[0].identifier === this.#touchId)
             {
                 let clickX = touch.pageX - this.#parentObject.offsetLeft;
                 let clickY = touch.pageY - this.#parentObject.offsetTop;
@@ -324,7 +324,7 @@ class FlexJoystick {
 
                 return;
             }
-        }
+        // }
     }
 
     handleTouchEnd(event) {
