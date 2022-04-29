@@ -278,15 +278,81 @@ class FlexJoystick {
     }
 
     handleTouchStart(event) {
+        if (this.#touchId >= 0) {
+            return;
+        }
+        this.#touchId = event.changedTouches[0].identifier;
+        this.#returnCanceled = false;
 
+        let clickX = event.changedTouches[0].pageX - this.#parentObject.offsetLeft;
+        let clickY = event.changedTouches[0].pageY - this.#parentObject.offsetTop;
+
+        if (this.#animationId > 0) {
+            clearInterval(this.#animationId);
+            this.#animationId = -1;
+        }
+
+        if (this.#joystickType === "long") {
+            this.#moveLong(clickX, clickY);
+        }
+        else if (this.#joystickType === "wide") {
+            this.#moveWide(clickX, clickY);
+        }
+        else {
+            this.#moveRound(clickX, clickY);
+        }
     }
 
     handleTouchMove(event) {
+        for(touch in event.changedTouches)
+        {
+            if(touch.identifier === this.#touchId)
+            {
+                let clickX = touch.pageX - this.#parentObject.offsetLeft;
+                let clickY = touch.pageY - this.#parentObject.offsetTop;
 
+                if (this.#joystickType === "long") {
+                    this.#moveLong(clickX, clickY);
+                }
+                else if (this.#joystickType === "wide") {
+                    this.#moveWide(clickX, clickY);
+                }
+                else {
+                    this.#moveRound(clickX, clickY);
+                }
+
+                return;
+            }
+        }
     }
 
     handleTouchEnd(event) {
+        for(touch in event.changedTouches)
+        {
+            if(touch.identifier === this.#touchId)
+            {
+                this.#touchId = -1;
 
+                this.#returnCanceled = !returnToCenter;
+                if (this.#returnCanceled === true) {
+                    return;
+                }
+        
+                if (this.#animationFrames === 0) {
+                    if (this.#joystickType === "long") {
+                        this.#moveLong(this.#centerX, this.#centerY);
+                    }
+                    else if (this.#joystickType === "wide") {
+                        this.#moveWide(this.#centerX, this.#centerY);
+                    }
+                    else {
+                        this.#moveRound(this.#centerX, this.#centerY)
+                    }
+                }
+                
+                return;
+            }
+        }
     }
 
     enableAnimation(animationId) {
@@ -405,7 +471,6 @@ class FlexJoystick {
             return "U";
         }
         return "D";
-        s
     }
 
     #getWideDirection() {
