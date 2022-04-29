@@ -64,7 +64,7 @@
 
         }, false);
 
-        document.addEventListener("touchmove", function(){
+        document.addEventListener("touchmove", function(event){
             joystick1.handleTouchMove(event);
 
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
@@ -72,7 +72,7 @@
             document.getElementById("t1s3").innerHTML = event.changedTouches[0].identifier;
         }, false);
 
-        document.addEventListener("touchend", function(){
+        document.addEventListener("touchend", function(event){
             document.onselectstart = () => {return true};
             let listener = setInterval(function(){
                 joystick1.handleAnimation();
