@@ -60,7 +60,7 @@
 
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s3").innerHTML = event.changedTouches[0].identifier;
+            document.getElementById("t1s3").innerHTML = joystick1.getTouchId();
 
         }, false);
 
@@ -69,7 +69,7 @@
 
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s3").innerHTML = event.changedTouches[0].identifier;
+            document.getElementById("t1s3").innerHTML = joystick1.getTouchId();
         }, false);
 
         document.addEventListener("touchend", function(event){
@@ -83,7 +83,7 @@
 
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s3").innerHTML = event.changedTouches[0].identifier;
+            document.getElementById("t1s3").innerHTML = joystick1.getTouchId();
         }, false);
 
         // document.getElementById("example_1_Div_1").addEventListener("mousedown", function(event){
