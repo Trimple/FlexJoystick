@@ -55,7 +55,7 @@
         let joystick3 = new FlexJoystick("example_1_Div_3");
 
         document.getElementById("example_1_Div_1").addEventListener("touchstart", function(event){
-            document.onselectstart = () => {return false};
+            // document.onselectstart = () => {return false};
             joystick1.handleTouchStart(event);
 
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
@@ -73,11 +73,11 @@
         }, false);
 
         document.addEventListener("touchend", function(event){
-            document.onselectstart = () => {return true};
-            let listener = setInterval(function(){
-                joystick1.handleAnimation();
-            }, 10);
-            joystick1.enableAnimation(listener);
+            // document.onselectstart = () => {return true};
+            // let listener = setInterval(function(){
+            //     joystick1.handleAnimation();
+            // }, 10);
+            // joystick1.enableAnimation(listener);
 
             joystick1.handleTouchEnd(event);
 

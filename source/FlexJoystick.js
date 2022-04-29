@@ -228,7 +228,7 @@ class FlexJoystick {
             this.#moveRound(clickX, clickY);
         }
 
-        if (this.#animationId > 0) {
+        if (this.#animationId >= 0) {
             clearInterval(this.#animationId);
             this.#animationId = -1;
         }
@@ -288,7 +288,7 @@ class FlexJoystick {
         let clickX = event.changedTouches[0].pageX - this.#parentObject.offsetLeft;
         let clickY = event.changedTouches[0].pageY - this.#parentObject.offsetTop;
 
-        if (this.#animationId > 0) {
+        if (this.#animationId >= 0) {
             clearInterval(this.#animationId);
             this.#animationId = -1;
         }
