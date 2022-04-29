@@ -60,7 +60,7 @@
 
             // document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             // document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s2").innerHTML = joystick1.getId();
+            document.getElementById("t1s2").innerHTML = joystick1.getTouchId();
             document.getElementById("t1s3").innerHTML = "touched";
             
         }, false);
@@ -70,7 +70,7 @@
             
             // document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             // document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s2").innerHTML = joystick1.getId();
+            document.getElementById("t1s2").innerHTML = joystick1.getTouchId();
             document.getElementById("t1s3").innerHTML = "moved";
         }, false);
         
@@ -85,7 +85,7 @@
                 
                 // document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
                 // document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-                document.getElementById("t1s2").innerHTML = joystick1.getId();
+                document.getElementById("t1s2").innerHTML = joystick1.getTouchId();
                 document.getElementById("t1s3").innerHTML = "ended";
         }, false);
 
