@@ -305,12 +305,12 @@ class FlexJoystick {
     }
 
     handleTouchMove(event) {
-        // for(touch in event.changedTouches)
-        // {
-            if(event.changedTouches[0].identifier === this.#touchId)
+        for(let i = 0; i < event.changedTouches.length; i += 1)
+        {
+            if(event.changedTouches[i].identifier === this.#touchId)
             {
-                let clickX = touch.pageX - this.#parentObject.offsetLeft;
-                let clickY = touch.pageY - this.#parentObject.offsetTop;
+                let clickX = event.changedTouches[i].pageX - this.#parentObject.offsetLeft;
+                let clickY = event.changedTouches[i].pageY - this.#parentObject.offsetTop;
 
                 if (this.#joystickType === "long") {
                     this.#moveLong(clickX, clickY);
@@ -324,13 +324,13 @@ class FlexJoystick {
 
                 return;
             }
-        // }
+        }
     }
 
-    handleTouchEnd(event) {
-        for(touch in event.changedTouches)
+    handleTouchEnd(event, returnToCenter) {
+        for(let i = 0; i < event.changedTouches.length; i += 1)
         {
-            if(touch.identifier === this.#touchId)
+            if(event.changedTouches[i].identifier === this.#touchId)
             {
                 this.#touchId = -1;
 

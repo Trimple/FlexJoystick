@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Simple example</title>
+    <script src="/FlexJoystick.js"></script>
+    
+</head>
+<body>
+    <h1>Simple joysticks examples</h1>
+    <div id="example_1_Div_1"></div>
+    <table style="margin:auto;">
+        <tr>
+            <td class="textTd"><b>X:</b></td>
+            <td class="spanTd">&nbsp;<span id="t1s1">0.00</span></td>
+            <td class="textTd"><span><b>Y:</b></span></td>
+            <td class="spanTd">&nbsp;<span id="t1s2">0.00</span></td>
+            <td class="textTd"><span><b>Dir:</b></span></td>
+            <td class="spanTd">&nbsp;<span id="t1s3">C</span></td>
+        </tr>
+    </table>
+    <br>
+    <div id="example_1_Div_2"></div>
+    <table style="margin:auto;">
+        <tr>
+            <td class="textTd"><b>X:</b></td>
+            <td class="spanTd">&nbsp;<span id="t2s1">0.00</span></td>
+            <td class="textTd"><span><b>Y:</b></span></td>
+            <td class="spanTd">&nbsp;<span id="t2s2">0.00</span></td>
+            <td class="textTd"><span><b>Dir:</b></span></td>
+            <td class="spanTd">&nbsp;<span id="t2s3">C</span></td>
+        </tr>
+    </table>
+    <br>
+    <div id="example_1_Div_3"></div>
+    <table style="margin:auto;">
+        <tr>
+            <td class="textTd"><b>X:</b></td>
+            <td class="spanTd">&nbsp;<span id="t3s1">0.00</span></td>
+            <td class="textTd"><span><b>Y:</b></span></td>
+            <td class="spanTd">&nbsp;<span id="t3s2">0.00</span></td>
+            <td class="textTd"><span><b>Dir:</b></span></td>
+            <td class="spanTd">&nbsp;<span id="t3s3">C</span></td>
+        </tr>
+    </table>
+
+    <button onclick="test()">click me</button>
+    <span id="click">2</span>
+
+    <script>
+        let joystick1 = new FlexJoystick("example_1_Div_1");
+        let joystick2 = new FlexJoystick("example_1_Div_2");
+        let joystick3 = new FlexJoystick("example_1_Div_3");
+
+        document.getElementById("example_1_Div_1").addEventListener("touchstart", function(event){
+            document.onselectstart = () => {return false};
+            joystick1.handleTouchStart(event);
+
+            document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+            document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+            document.getElementById("t1s3").innerHTML = joystick1.getDirection();
+            
+        }, false);
+        
+        document.addEventListener("touchmove", function(event){
+            joystick1.handleTouchMove(event);
+            
+            document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+            document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+            document.getElementById("t1s3").innerHTML = joystick1.getDirection();
+        }, false);
+        
+        document.addEventListener("touchend", function(event){
+            document.onselectstart = () => {return true};
+            let listener = setInterval(function(){
+                    joystick1.handleAnimation();
+                }, 10);
+                joystick1.enableAnimation(listener);
+                
+                joystick1.handleTouchEnd(event, true);
+                
+                document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+                document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+                document.getElementById("t1s3").innerHTML = joystick1.getDirection();
+        }, false);
+
+        document.getElementById("example_1_Div_1").addEventListener("mousedown", function(event){
+            document.onselectstart = () => {return false};
+            joystick1.handleMouseDown(event);
+            document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+            document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+            document.getElementById("t1s3").innerHTML = joystick1.getDirection();
+        }, false);
+        
+        document.getElementById("example_1_Div_2").addEventListener("mousedown", function(event){
+            document.onselectstart = () => {return false};
+            joystick2.handleMouseDown(event);
+            document.getElementById("t2s1").innerHTML = joystick2.getStickX().toFixed(2);
+            document.getElementById("t2s2").innerHTML = joystick2.getStickY().toFixed(2);
+            document.getElementById("t2s3").innerHTML = joystick2.getDirection();
+        }, false);
+
+        document.getElementById("example_1_Div_3").addEventListener("mousedown", function(event){
+            document.onselectstart = () => {return false};
+            joystick3.handleMouseDown(event);
+            document.getElementById("t3s1").innerHTML = joystick3.getStickX().toFixed(2);
+            document.getElementById("t3s2").innerHTML = joystick3.getStickY().toFixed(2);
+            document.getElementById("t3s3").innerHTML = joystick3.getDirection();
+        }, false);
+
+        document.addEventListener("mousemove", function(event){
+            joystick1.handleMouseMove(event);
+            joystick2.handleMouseMove(event);
+            joystick3.handleMouseMove(event);
+
+            document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+            document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+            document.getElementById("t1s3").innerHTML = joystick1.getDirection();
+
+            document.getElementById("t2s1").innerHTML = joystick2.getStickX().toFixed(2);
+            document.getElementById("t2s2").innerHTML = joystick2.getStickY().toFixed(2);
+            document.getElementById("t2s3").innerHTML = joystick2.getDirection();
+
+            document.getElementById("t3s1").innerHTML = joystick3.getStickX().toFixed(2);
+            document.getElementById("t3s2").innerHTML = joystick3.getStickY().toFixed(2);
+            document.getElementById("t3s3").innerHTML = joystick3.getDirection();
+
+        }, false);
+
+        document.addEventListener("mouseup", function(event){
+            document.onselectstart = () => {return true};
+
+            let listener = setInterval(function(){
+                joystick1.handleAnimation();
+            }, 10);
+            joystick1.enableAnimation(listener);
+            
+            joystick1.handleMouseUp(event, true);
+            joystick2.handleMouseUp(event, true);
+            joystick3.handleMouseUp(event, true);
+
+            document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+            document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+            document.getElementById("t1s3").innerHTML = joystick1.getDirection();
+            
+            document.getElementById("t2s1").innerHTML = joystick2.getStickX().toFixed(2);
+            document.getElementById("t2s2").innerHTML = joystick2.getStickY().toFixed(2);
+            document.getElementById("t2s3").innerHTML = joystick2.getDirection();
+
+            document.getElementById("t3s1").innerHTML = joystick3.getStickX().toFixed(2);
+            document.getElementById("t3s2").innerHTML = joystick3.getStickY().toFixed(2);
+            document.getElementById("t3s3").innerHTML = joystick3.getDirection();
+
+        },false);
+
+        function test(){
+            // document.getElementById("example_1_Div_1Outline").style.background = 'black';
+            document.getElementById("example_1_Div_1").style.width = '300px';
+            // document.getElementById("example_1_Div_1Stick").style.width = '50px';
+            // document.getElementById("example_1_Div_3Outline").style.borderRadius = '15px';
+            // document.getElementById("example_1_Div_3Stick").style.borderRadius = '10px';
+            // document.getElementById("example_1_Div_3Stick").style.width = '100px';
+            // joystick3.updateJoystickDimensions();
+            joystick1.resetJoystickDimensions();
+            // document.getElementById("click").innerHTML = document.getElementById("example_1_Div_1Stick").clientWidth;
+        }
+
+            // document.getElementById("example_1_Div_3Outline").style.background = "red"
+
+    </script>
+    
+    </body>
+
+</html>
