@@ -60,30 +60,32 @@
 
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s3").innerHTML = joystick1.getTouchId();
-
+            document.getElementById("t1s3").innerHTML = "touched";
+            
         }, false);
-
+        
         document.addEventListener("touchmove", function(event){
             joystick1.handleTouchMove(event);
-
+            
             document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
             document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s3").innerHTML = joystick1.getTouchId();
+            // document.getElementById("t1s3").innerHTML = joystick1.getTouchId();
+            document.getElementById("t1s3").innerHTML = "moved";
         }, false);
-
+        
         document.addEventListener("touchend", function(event){
             // document.onselectstart = () => {return true};
             // let listener = setInterval(function(){
-            //     joystick1.handleAnimation();
-            // }, 10);
-            // joystick1.enableAnimation(listener);
-
-            joystick1.handleTouchEnd(event);
-
-            document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
-            document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-            document.getElementById("t1s3").innerHTML = joystick1.getTouchId();
+                //     joystick1.handleAnimation();
+                // }, 10);
+                // joystick1.enableAnimation(listener);
+                
+                joystick1.handleTouchEnd(event);
+                
+                document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+                document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+                document.getElementById("t1s3").innerHTML = joystick1.getTouchId();
+                document.getElementById("t1s3").innerHTML = "ended";
         }, false);
 
         // document.getElementById("example_1_Div_1").addEventListener("mousedown", function(event){
