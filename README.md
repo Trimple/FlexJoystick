@@ -113,7 +113,7 @@ Joystick coordinate system starts from the center of the parent object and has 4
 Visual representation of the coordinates:
 
 <p align="center">
-<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/coordinateSystem.jpg" alt="coordinate system" width="60%">
+<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/coordinateSystems.jpg" alt="coordinate system" width="60%">
 </p>
 
 **FlexJoystick class** provides methods to get all 4 coordinates:
@@ -157,11 +157,11 @@ There is a couple of options for the **directionConfiguration** parameter when m
 
 
 <p align="center">
-<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/directionConfiguration_8_4.jpg" alt="directionConfiguration_8_4" width="60%">
+<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/directionConfiguration_8_4.jpg" alt="directionConfiguration_8_4" width="80%">
 </p>
 
 <p align="center">
-<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/directionConfiguration_2_2.jpg" alt="directionConfiguration_2_2" width="60%">
+<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/directionConfiguration_2_2.jpg" alt="directionConfiguration_2_2" width="80%">
 </p>
 
 The default mode for round joystick is 8 directions.
