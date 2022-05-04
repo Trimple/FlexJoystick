@@ -164,7 +164,7 @@ There is a couple of options for the **directionConfiguration** parameter when m
 <img src="https://github.com/Trimple/FlexJoystick/blob/main/images/directionConfiguration_2_2.jpg" alt="directionConfiguration_2_2" width="80%">
 </p>
 
-The default mode for round joystick is 8 directions.
+The default mode for the **"round"** joystick is 8 directions.
 
 ### Disable content selection while holding the Joystick 
 

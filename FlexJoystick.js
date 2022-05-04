@@ -442,8 +442,8 @@ class FlexJoystick {
      * @returns stick current direction as a string.
      */
     getDirection(directionConfiguration) {
-        if (this.#joystickType == "round" && directionConfiguration != 8 && directionConfiguration != 4 && directionConfiguration != 2 && directionConfiguration != 20) {
-            return this.#getRoundDirection(directionConfiguration);
+        if (this.#joystickType == "round" && directionConfiguration != 4 && directionConfiguration != 20 && directionConfiguration != 21) {
+            return this.#getRoundDirection(8);
         }
 
         if (this.#joystickType == "long") {
@@ -453,7 +453,7 @@ class FlexJoystick {
             return this.#getWideDirection();
         }
 
-        if (directionConfiguration === 2) {
+        if (directionConfiguration === 21) {
             return this.#getLongDirection();
         }
         else if (directionConfiguration === 20) {
