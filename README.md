@@ -6,13 +6,13 @@ The class supports 3 types of joysticks:
 2. Wide joysticks;
 3. Long joysticks;
 
-This is the default Joysticks design you can expect:
+This is the default Joysticks design you can expect (designe can be changed using JS):
 
-![default design showcase](https://github.com/Trimple/FlexJoystick/blob/main/images/defaultJoysticksDesignExample.jpg);
+<p align="center">
+<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/defaultJoysticksDesignExample.jpg" alt="showcase" width="60%">
+</p>
 
 You can play around with live examples [here](https://trimple.github.io/FlexJoystick/).
-
-**Important note**: I'm new to JavaScript and this is my first proper JS project. I'm absolutely not an expert in bose JS and web development. Contributions of all sorts are welcome!
 
 This project is open to use and improve by anyone.
 
