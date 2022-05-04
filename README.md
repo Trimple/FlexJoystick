@@ -25,15 +25,22 @@ To do that you need to have a div object that will be a parent to the joystick. 
 ```
 This will draw the joystick on the screen. **Joystick will inherit dimensions of the parent** object so don't forget to specify desired height and width when creating a parent div. Joystick type will be chosen automatically based on the parent dimensions.
 
-<details><summary><b>How joystick type is determined</b></summary>
-If div's height is bigger than width more than 1.4 times you will have a "long" joystick, if opposite is true you will have a "wide" one. In all other cases you will have a "round" joystick. "Round" Joystick will have the diameter equal to the smallest of parent dimensions and will be centered vertically and horizontally in the parent object.
-</details><p>
 
-### How joystick interactions works
+<details "><summary><b>How joystick type is determined</b></summary>
+<div style="background:#F8F8F8;margin-top:5px;">
+
+If div's **height is bigger than width more than 1.4** times you will have a **"long"** joystick, if **opposite is true** you will have a **"wide"** one. **In all other cases** you will have a **"round"** joystick. **"Round"** Joystick will have the diameter equal to the smallest of parent dimensions and will be centered vertically and horizontally in the parent object.
+</div>
+</details><p></p>
+
+### Enable mouse interactions
 
 At this point joystick is a static object. To make it work as intended you will need to add event handlers.
 
+<details "><summary><b>How joystick event handlers work</b></summary>
+<div style="background:#F8F8F8;margin-top:5px;">
 Joystick Class provides 6 event handle methods:
+
 - handleMouseDown(event);
 - handleMouseMove(event);
 - handleMouseUp(event, returnToCenter);
@@ -41,9 +48,12 @@ Joystick Class provides 6 event handle methods:
 - handleTouchMove(event);
 - handleTouchEnd(event, returnToCenter).
 
-If joystick should handle mouse clicks you should enable first 3 handlers, if you need to work with touches - last 3. You can enable all 6 events at the same time if needed. To enable handler you should call addEventListener function for a particular event type and call corresponding method inside.
+If joystick should handle mouse clicks you should enable first 3 handlers, if you need to work with touches - last 3. You can enable all 6 events at the same time if needed.
 
-### Enable mouse interactions
+ To enable handler you should call **addEventListener** function for a particular event type and call corresponding method inside.
+
+</div>
+</details><p></p>
 
 Here is the most basic example of mouse handling:
 
