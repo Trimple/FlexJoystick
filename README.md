@@ -166,19 +166,89 @@ There is a couple of options for the **directionConfiguration** parameter when m
 
 The default mode for the **"round"** joystick is 8 directions.
 
-### Disable content selection while holding the Joystick 
+User is free to choose any techique to get the data from the joystick, though there are two go to methods that can be easily implemented:
 
+**1. Function calls with fixed period**
+```js
+let currentX = 0;
+let currentY = 0;
+let currentDirection = "C";
+
+setInterval(function(){
+    currentX = joystick1.getStickX();
+    currentY = joystick1.getStickY();
+    currentDirection = joystick1.getDirection();
+}, 100);
+```
+
+An example above will update stick values once every 100ms. This method is easy to use, but have two problems:
+1. it will be too slow to react to fast changes (though the update rate can be increased);
+2. it will call class methods even if no updates happened thus introducing unnecessary calculations.
+
+**2. Function calls on joystick updates**
+
+Example for the mouse:
+
+```js
+document.getElementById("parentDivName").addEventListener("mousedown", function(event){
+    joystick.handleMouseDown(event);
+    currentX = joystick.getStickX().toFixed(2);
+    currentY = joystick.getStickY().toFixed(2);
+    currentDirection = joystick.getDirection();
+}, false);
+
+document.addEventListener("mousemove", function(event){
+    joystick.handleMouseMove(event);
+    currentX = joystick.getStickX().toFixed(2);
+    currentY = joystick.getStickY().toFixed(2);
+    currentDirection = joystick.getDirection();
+}, false);
+
+document.addEventListener("mouseup", function(event){
+    document.onselectstart = () => {return true};
+    joystick.handleMouseUp(event, true);
+    currentX = joystick.getStickX().toFixed(2);
+    currentY = joystick.getStickY().toFixed(2);
+    currentDirection = joystick.getDirection();
+},false);
+```
+
+This method requires more code that can be converted into a separate function, but will update the values only when events are called.
 
 ### Enable touch interactions
 
+In the mos simple configuration 
+
+
+### Disable content selection while holding the Joystick 
+
+When using mouse to work with joystick you will always select all the content on the page when moving the mouse outside of the parent object. The same way, if you will move your finger down while holding joystick on the mobile device you can sometimes unintentionally refresh the page.There is a small trick to prevent such behavior:
+
+```js
+        document.getElementById("parentDivName").addEventListener("mousedown", function(event){
+            document.onselectstart = () => {return false};
+            joystick.handleMouseDown(event);
+        }, false);
+
+        document.addEventListener("mousemove", function(event){
+            joystick1.handleMouseMove(event);
+
+
+        }, false);
+
+        document.addEventListener("mouseup", function(event){
+            document.onselectstart = () => {return true};
+            joystick.handleMouseUp(event, true);
+        },false);
+```
+
+In the example above we added handlers for the onselectStart event. We disabled content selection when the joystick is clicked, and enabled it back again when it is released. Simple, but functional!
 
 ### Enable "return to center" animation
 
 
 ### Change Joystick design
 
-
-## How it works
 
 ## How to contribute 
 
