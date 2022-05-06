@@ -393,7 +393,6 @@ class FlexJoystick {
                 return;
             }
 
-
             if (this.#joystickType === "long") {
                 this.#moveLong(targetX, targetY);
             }
@@ -442,6 +441,11 @@ class FlexJoystick {
      * @returns stick current direction as a string.
      */
     getDirection(directionConfiguration) {
+
+        if (this.#isPressed === false && this.#touchId === -1 && this.#returnCanceled === false) {
+            return "C";
+        }
+
         if (this.#joystickType == "round" && directionConfiguration != 4 && directionConfiguration != 20 && directionConfiguration != 21) {
             return this.#getRoundDirection(8);
         }

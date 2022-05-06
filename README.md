@@ -242,21 +242,21 @@ Every instance of FlexJoystick works with a single touch event at a time and wil
 When using mouse to work with joystick you will always select all the content on the page when moving the mouse outside of the parent object. The same way, if you will move your finger down while holding joystick on the mobile device you can sometimes unintentionally refresh the page.There is a small trick to prevent such behavior (example for the mouse, but touch will work the same way):
 
 ```js
-        document.getElementById("parentDivName").addEventListener("mousedown", function(event){
-            document.onselectstart = () => {return false};
-            joystick.handleMouseDown(event);
-        }, false);
+document.getElementById("parentDivName").addEventListener("mousedown", function(event){
+    document.onselectstart = () => {return false};
+    joystick.handleMouseDown(event);
+}, false);
 
-        document.addEventListener("mousemove", function(event){
-            joystick1.handleMouseMove(event);
+document.addEventListener("mousemove", function(event){
+    joystick1.handleMouseMove(event);
 
 
-        }, false);
+}, false);
 
-        document.addEventListener("mouseup", function(event){
-            document.onselectstart = () => {return true};
-            joystick.handleMouseUp(event, true);
-        },false);
+document.addEventListener("mouseup", function(event){
+    document.onselectstart = () => {return true};
+    joystick.handleMouseUp(event, true);
+},false);
 ```
 
 In the example above we added handlers for the onselectStart event. We disabled content selection when the joystick is clicked, and enabled it back again when it is released. Simple, but functional!
@@ -287,12 +287,93 @@ Animation is handled frame by frame. To show the frames we should call the handl
 
 Here is how to enable animation for the touch event:
 ```js
+document.addEventListener("touchend", function(event){
+    if(event.changedTouches[0].identifier == joystick.getTouchId())
+    {
+        let listener = setInterval(function(){
+                joystick.handleAnimation();
+            }, 10);
+        joystick.enableAnimation(listener);
+    }
+    
+    joystick.handleTouchEnd(event, true);
+    
+}, false);
+```
+Event listener works for the whole document therefore each **"touchend"** event will call the handler function. To check if the source event is the same event that **FlexJoystick** handles you can use **getTouchId** method, which returns the ID of the touch that is handled by the specific joystick.
+Everything else is the same as with the mouse click.
+
+### Handle events for multiple joysticks
+To handle multiple joystick you will need to register the **"touchstart"** event for every particular joystick and can use the same **"touchmove"** and **"touchend"** events like in example below:
+
+```js
+
+let joystick1 = new FlexJoystick("parentDivName_1");
+let joystick2 = new FlexJoystick("parentDivName_2");
+
+document.getElementById("parentDivName_1").addEventListener("touchstart", function(event){
+    document.onselectstart = () => {return false};
+    joystick1.handleMouseDown(event);
+}, false);
+
+document.getElementById("parentDivName_2").addEventListener("touchstart", function(event){
+    document.onselectstart = () => {return false};
+    joystick2.handleMouseDown(event);
+}, false);
+
+document.addEventListener("touchmove", function(event){
+    joystick1.handleMouseMove(event);
+    joystick2.handleMouseMove(event);
+}, false);
+
+document.addEventListener("touchend", function(event){
+    document.onselectstart = () => {return true};
+
+    joystick1.handleMouseUp(event, true);
+    joystick2.handleMouseUp(event, true);
+},false);
 
 ```
 
-
 ### Change Joystick design
+**FlexJoystick object consists of two div tags** that are both children of the **paretnDiv**. One div is the joystick outline and the second one is the stick. You can customise these tags in whatever way you want using Java script. 
 
+Outline object name will be equal to the parent object name + "Outline" on the end: "parentDivNameOutline". Stick object name will be equal to the parent object name + "Stick": "parentDivNameStick".
+
+In theory joystick can be 100% redesigned with addition of additional divs and images ontop to make whatever custom look your aplication needs, but this should be an advanced topic for eveyone to discover. Below will be a couple of examples with simple style changes.
+
+#### Changing default colors 
+
+```js
+let joystick = new FlexJoystick("parentDivName");
+document.getElementById("parentDivNameOutline").style.background = "red";
+document.getElementById("parentDivNameStick").style.background = "red";
+document.getElementById("parentDivNameStick").style.opacity = "50%";
+```
+
+<p align="center">
+<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/colorChangeExample.jpg" alt="colorChangeExample" width="40%">
+</p>
+
+#### Changing border shape and color
+
+```js
+let joystick = new FlexJoystick("parentDivName");
+document.getElementById("parentDivNameOutline").style.background = "aquamarine";
+document.getElementById("parentDivNameOutline").style.borderRadius = "15px";
+document.getElementById("parentDivNameStick").style.background = "aquamarine";
+document.getElementById("parentDivNameStick").style.opacity = "80%";
+document.getElementById("parentDivNameStick").style.borderRadius = "10px";
+document.getElementById("parentDivNameStick").style.border = "5px solid white";
+```
+
+<p align="center">
+<img src="https://github.com/Trimple/FlexJoystick/blob/main/images/borderChangeExample.jpg" alt="borderChangeExample" width="40%">
+</p>
+
+#### Resizing the joystick without updating the page
+
+Joystick supports two types of resize:
 
 ## How to contribute 
 
