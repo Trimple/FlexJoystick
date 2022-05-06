@@ -1,7 +1,7 @@
 # FlexJoystick
 **FlexJoystick** is a plain JavaScript ES6 class that is used to add interactable joysticks to the websites.
 
-<details "><summary><b>What FlexJoystick is capable of</b></summary>
+<details "><summary><b>What FlexJoystick is capable of?</b></summary>
 <div style="background:#F8F8F8;margin-top:5px;margin-left:1em;">
 
 * 3 types of joysticks:
@@ -26,11 +26,6 @@
 * there is a "return to center" animation for a stick that can be enabled by 3 lines of code.
 </div>
 </details><p></p>
-
-The class supports 3 types of joysticks:
-1. Classic round Joysticks;
-2. Wide joysticks;
-3. Long joysticks;
 
 This is the default Joysticks design you can expect (it can be changed using JS):
 
@@ -98,16 +93,18 @@ document.addEventListener("mouseup", function(event){
 },false);
 ```
 
-It is **important to note that "mousedown" handler is registered only for tha parent object** - when we click on the joystick. To other handlers are registered for the whole document, so that we can control the stick even when we are out of boundaries of the parent object. If needed handlers can be registered for a different objects.
+It is **important to note that "mousedown" handler is registered only for tha parent object** - when we click on the joystick. **Two other handlers are registered for the whole document,** so that we can control the stick even when we are out of boundaries of the parent object. If needed handlers can be registered differently, but this is a go to way at the beginning.
 
-At this point you have a fully functional basic joystick that works with mouse. But it still doesn't give you any type of data to work with.
+**handleMouseUp** method has a second parameter - **returnToCenter**. If it is set to *true* stick will return to center after mouse up. If it is set to *false* stick will hold it place even after mouse is up.
+
+At this point you have a joystick that works with mouse. But it still doesn't give you any type of data to work with.
 
 ### Read the coordinates from the Joystick
 
 Joystick coordinate system starts from the center of the parent object and has 4 different coordinates:
 1. **X coordinate** of the center of the stick **in pixels**;
 2. **Y coordinate** of the center of the stick **in pixels**;
-3. **radius to the event source position** (mouse click or touch) from the center of coordinate system. It has **normalized value** - equal to 0 when stick is in the center, 1.0 when stick touches the border and higher than 1 when event source is outside of the parent object;
+3. **radius to the event source position** (mouse click or touch) from the center of coordinate system. It has **normalized value** - equal to 0 when stick is in the center, 1.0 when stick touches the border and higher than 1.0 when event source is outside of the parent object;
 4. **radius angle** from **0 to 360 degrees**.
 
 Visual representation of the coordinates:
@@ -164,9 +161,9 @@ There is a couple of options for the **directionConfiguration** parameter when m
 <img src="https://github.com/Trimple/FlexJoystick/blob/main/images/directionConfiguration_2_2.jpg" alt="directionConfiguration_2_2" width="80%">
 </p>
 
-The default mode for the **"round"** joystick is 8 directions.
+The default mode for the **"round"** joystick is **8 directions**.
 
-User is free to choose any techique to get the data from the joystick, though there are two go to methods that can be easily implemented:
+You are free to choose any technique to get the data from the joystick, though there are two go to methods that can be easily implemented:
 
 **1. Function calls with fixed period**
 ```js
@@ -183,15 +180,16 @@ setInterval(function(){
 
 An example above will update stick values once every 100ms. This method is easy to use, but have two problems:
 1. it will be too slow to react to fast changes (though the update rate can be increased);
-2. it will call class methods even if no updates happened thus introducing unnecessary calculations.
+2. it will call class methods even if no updates happened, thus introducing unnecessary calculations.
 
 **2. Function calls on joystick updates**
 
-Example for the mouse:
+Example for the mouse handling:
 
 ```js
 document.getElementById("parentDivName").addEventListener("mousedown", function(event){
     joystick.handleMouseDown(event);
+
     currentX = joystick.getStickX().toFixed(2);
     currentY = joystick.getStickY().toFixed(2);
     currentDirection = joystick.getDirection();
@@ -199,14 +197,15 @@ document.getElementById("parentDivName").addEventListener("mousedown", function(
 
 document.addEventListener("mousemove", function(event){
     joystick.handleMouseMove(event);
+
     currentX = joystick.getStickX().toFixed(2);
     currentY = joystick.getStickY().toFixed(2);
     currentDirection = joystick.getDirection();
 }, false);
 
 document.addEventListener("mouseup", function(event){
-    document.onselectstart = () => {return true};
     joystick.handleMouseUp(event, true);
+
     currentX = joystick.getStickX().toFixed(2);
     currentY = joystick.getStickY().toFixed(2);
     currentDirection = joystick.getDirection();
@@ -217,12 +216,30 @@ This method requires more code that can be converted into a separate function, b
 
 ### Enable touch interactions
 
-In the mos simple configuration 
+Here is the most basic example of touch handling:
+```js
+document.getElementById("parentDivName").addEventListener("touchstart", function(event){
+    joystick1.handleTouchStart(event);
+}, false);
 
+document.addEventListener("touchmove", function(event){
+    joystick1.handleTouchMove(event);
+}, false);
+
+document.addEventListener("touchend", function(event){
+        joystick1.handleTouchEnd(event, true);
+}, false);
+```
+
+The methods are pretty similar to mouse handling. But **you should always use touch handlers for touch events and mouse methods for mouse events** as they have different functionality.
+
+Every instance of FlexJoystick works with a single touch event at a time and will handle the updates only of a corresponding touch event. So if you will try to touch already engaged joystick nothing will happen. Therefore it is possible to use multiple joystick on the same page at the same time.
+
+**handleTouchEnd** method has a second parameter - **returnToCenter**. If it is set to *true* stick will return to center after corresponding touch ends. If it is set to *false* stick will hold it place even after corresponding touch has ended.
 
 ### Disable content selection while holding the Joystick 
 
-When using mouse to work with joystick you will always select all the content on the page when moving the mouse outside of the parent object. The same way, if you will move your finger down while holding joystick on the mobile device you can sometimes unintentionally refresh the page.There is a small trick to prevent such behavior:
+When using mouse to work with joystick you will always select all the content on the page when moving the mouse outside of the parent object. The same way, if you will move your finger down while holding joystick on the mobile device you can sometimes unintentionally refresh the page.There is a small trick to prevent such behavior (example for the mouse, but touch will work the same way):
 
 ```js
         document.getElementById("parentDivName").addEventListener("mousedown", function(event){
@@ -246,9 +263,37 @@ In the example above we added handlers for the onselectStart event. We disabled 
 
 ### Enable "return to center" animation
 
+"return to center" animation moves the stick to the center of the parent object in multiple steps. Animations should be enabled a bit differently depending on the even source.
+
+Here is how to enable animation for the mouse event:
+```js
+document.addEventListener("mouseup", function(event){
+    let interval = setInterval(function(){
+        joystick.handleAnimation();
+    }, 10);
+    joystick.enableAnimation(interval);
+    
+    joystick.handleMouseUp(event, true);
+},false);
+```
+Animation is handled frame by frame. To show the frames we should call the handleAnimation method therefore we should register interval to call the method. After animation is finished interval is deleted, therefore we have to provide enableAnimation function with the setInterval return object.
+
+**There are a couple important points to note here**:
+1. animation must be enabled and handled in the mouseup handler;
+2. animation must be registered before it is enabled;
+3. animation must be enabled before mouse up is handled;
+4. 10 ms is default animation speed that looks good for my taste. To make animation slower you can increase this value;
+5. even though animation takes some time to finish, right after animation event was called all get methods will return coordinates of the center of the object. This is done to prevent false joysticks coordinates reads while the stick is on the move.
+
+Here is how to enable animation for the touch event:
+```js
+
+```
+
 
 ### Change Joystick design
 
 
 ## How to contribute 
+
 
