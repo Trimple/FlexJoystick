@@ -371,10 +371,30 @@ document.getElementById("parentDivNameStick").style.border = "5px solid white";
 <img src="https://github.com/Trimple/FlexJoystick/blob/main/images/borderChangeExample.jpg" alt="borderChangeExample" width="40%">
 </p>
 
-#### Resizing the joystick without updating the page
+#### Resizing the joystick 
+Both stick and outline sizes are defined in pixels even if the parent object size is defined differently, for example as a percentage. Therefore if the page is resized, for example when the mobile phone screen is rotated, joysticks will keep the same size as before. To update the size of the joystick **FlexJoystick** class provide two types of resize methods:
+1. resize with default parameters;
+2. resize with custom parameters;
 
-Joystick supports two types of resize:
+Resize with default parameters can be used if you haven't changed the size of Stick or Outline and just need to make them fit the new size of the parent object:
+
+```js
+joystick.resetJoystickDimensions();
+```
+
+Resize with custom parameters should be used when you want to change default size of stick or outline compared to the parent div, like to make stick smaller or in a shape of rectangle or anything else:
+
+```js
+// some code that changes the size of the stick or Outline
+joystick.updateJoystickDimensions();
+```
+
+without this line joystick performance most likely be incorrect as it will use previous parameters.
 
 ## How to contribute 
 
+This is my first real JS project. I don't really have experience with both JS and open source development, so please be nice to me and everyone else out here.
 
+Readme can and probably does have grammatical errors, refactoring help is super welcome.
+
+Bugs fixes and new features can be suggested using pull requests. I would really appreciate experienced look through the code with suggestions how the style and functionality can be improved.

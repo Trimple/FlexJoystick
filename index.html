@@ -9,7 +9,6 @@
 </head>
 <body>
     <h1>Simple joysticks examples</h1>
-
     <div id="example_1_Div_1"></div>
     <table style="margin:auto;">
         <tr>
@@ -51,7 +50,23 @@
 
     <script>
         let joystick1 = new FlexJoystick("example_1_Div_1");
+        document.getElementById("example_1_Div_1Outline").style.background = "red";
+        document.getElementById("example_1_Div_1Stick").style.background = "red";
+        document.getElementById("example_1_Div_1Stick").style.opacity = "50%";
+        
+        
+        
         let joystick2 = new FlexJoystick("example_1_Div_2");
+        document.getElementById("example_1_Div_2Outline").style.background = "aquamarine";
+        document.getElementById("example_1_Div_2Outline").style.borderRadius = "15px";
+        document.getElementById("example_1_Div_2Stick").style.background = "aquamarine";
+        document.getElementById("example_1_Div_2Stick").style.opacity = "80%";
+        document.getElementById("example_1_Div_2Stick").style.borderRadius = "10px";
+        document.getElementById("example_1_Div_2Stick").style.border = "5px solid white";
+
+
+
+
         let joystick3 = new FlexJoystick("example_1_Div_3");
 
         document.getElementById("example_1_Div_1").addEventListener("touchstart", function(event){
@@ -74,16 +89,19 @@
         
         document.addEventListener("touchend", function(event){
             document.onselectstart = () => {return true};
-            let listener = setInterval(function(){
-                    joystick1.handleAnimation();
-                }, 10);
-                joystick1.enableAnimation(listener);
-                
-                joystick1.handleTouchEnd(event, true);
-                
-                document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
-                document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
-                document.getElementById("t1s3").innerHTML = joystick1.getDirection();
+            if(event.changedTouches[0].identifier == joystick1.getTouchId())
+            {
+                let interval = setInterval(function(){
+                        joystick1.handleAnimation();
+                    }, 10);
+                joystick1.enableAnimation(interval);
+            }
+            
+            joystick1.handleTouchEnd(event, true);
+            
+            document.getElementById("t1s1").innerHTML = joystick1.getStickX().toFixed(2);
+            document.getElementById("t1s2").innerHTML = joystick1.getStickY().toFixed(2);
+            document.getElementById("t1s3").innerHTML = joystick1.getDirection();
         }, false);
 
         document.getElementById("example_1_Div_1").addEventListener("mousedown", function(event){
