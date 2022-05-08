@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Simple example</title>
-    <script src="FlexJoystick.js"></script>
+    <script src="FlexJoystick-min.js"></script>
 </head>
 <body>
     <h1>Simple joysticks examples</h1>
@@ -50,23 +50,7 @@
 
     <script>
         let joystick1 = new FlexJoystick("example_1_Div_1");
-        document.getElementById("example_1_Div_1Outline").style.background = "red";
-        document.getElementById("example_1_Div_1Stick").style.background = "red";
-        document.getElementById("example_1_Div_1Stick").style.opacity = "50%";
-        
-        
-        
         let joystick2 = new FlexJoystick("example_1_Div_2");
-        document.getElementById("example_1_Div_2Outline").style.background = "aquamarine";
-        document.getElementById("example_1_Div_2Outline").style.borderRadius = "15px";
-        document.getElementById("example_1_Div_2Stick").style.background = "aquamarine";
-        document.getElementById("example_1_Div_2Stick").style.opacity = "80%";
-        document.getElementById("example_1_Div_2Stick").style.borderRadius = "10px";
-        document.getElementById("example_1_Div_2Stick").style.border = "5px solid white";
-
-
-
-
         let joystick3 = new FlexJoystick("example_1_Div_3");
 
         document.getElementById("example_1_Div_1").addEventListener("touchstart", function(event){
