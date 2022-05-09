@@ -4,7 +4,6 @@ class FlexJoystick {
     #stickObject;
 
     #joystickType;
-
     #centerX;
     #centerY;
 
