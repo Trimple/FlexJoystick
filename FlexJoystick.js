@@ -210,12 +210,20 @@ class FlexJoystick {
         this.#moveStick(targetX, targetY);
     }
 
-    handleMouseDown(event) {
+    handleMouseDown(event, specificX, specificY) {
         this.#isPressed = true;
         this.#returnCanceled = false;
 
-        let clickX = event.pageX - this.#parentObject.offsetLeft;
-        let clickY = event.pageY - this.#parentObject.offsetTop;
+        let clickX;
+        let clickY;
+
+        if (typeof specificX === "undefined" || typeof specificY === "undefined") {
+            clickX = event.pageX - this.#parentObject.offsetLeft;
+            clickY = event.pageY - this.#parentObject.offsetTop;
+        } else {
+            clickX = specificX;
+            clickY = specificY;
+        }
 
         if (this.#joystickType === "long") {
             this.#moveLong(clickX, clickY);
@@ -233,13 +241,22 @@ class FlexJoystick {
         }
     }
 
-    handleMouseMove(event) {
+    handleMouseMove(event, specificX, specificY) {
         if (this.#isPressed === false) {
             return;
         }
 
-        let clickX = event.pageX - this.#parentObject.offsetLeft;
-        let clickY = event.pageY - this.#parentObject.offsetTop;
+        let clickX;
+        let clickY;
+
+        if(typeof specificX === "undefined" || typeof specificY === "undefined")
+        {
+            clickX = event.pageX - this.#parentObject.offsetLeft;
+            clickY = event.pageY - this.#parentObject.offsetTop;
+        }else{
+            clickX = specificX;
+            clickY = specificY;
+        }
 
         if (this.#joystickType === "long") {
             this.#moveLong(clickX, clickY);
@@ -276,7 +293,7 @@ class FlexJoystick {
         }
     }
 
-    handleTouchStart(event) {
+    handleTouchStart(event, specificX, specificY) {
         if (this.#touchId >= 0) {
             return;
         }
@@ -284,8 +301,16 @@ class FlexJoystick {
         this.#touchId = event.changedTouches[0].identifier;
         this.#returnCanceled = false;
 
-        let clickX = event.changedTouches[0].pageX - this.#parentObject.offsetLeft;
-        let clickY = event.changedTouches[0].pageY - this.#parentObject.offsetTop;
+        let clickX;
+        let clickY;
+
+        if (typeof specificX === "undefined" || typeof specificY === "undefined") {
+            clickX = event.changedTouches[0].pageX - this.#parentObject.offsetLeft;
+            clickY = event.changedTouches[0].pageY - this.#parentObject.offsetTop;
+        } else {
+            clickX = specificX;
+            clickY = specificY;
+        }
 
         if (this.#animationId >= 0) {
             clearInterval(this.#animationId);
@@ -303,13 +328,22 @@ class FlexJoystick {
         }
     }
 
-    handleTouchMove(event) {
+    handleTouchMove(event, specificX, specificY) {
         for(let i = 0; i < event.changedTouches.length; i += 1)
         {
             if(event.changedTouches[i].identifier === this.#touchId)
             {
-                let clickX = event.changedTouches[i].pageX - this.#parentObject.offsetLeft;
-                let clickY = event.changedTouches[i].pageY - this.#parentObject.offsetTop;
+                let clickX;
+                let clickY;
+
+                if(typeof specificX === "undefined" || typeof specificY === "undefined")
+                {
+                    clickX = event.changedTouches[i].pageX - this.#parentObject.offsetLeft;
+                    clickY = event.changedTouches[i].pageY - this.#parentObject.offsetTop;
+                }else{
+                    clickX = specificX;
+                    clickY = specificY;
+                }
 
                 if (this.#joystickType === "long") {
                     this.#moveLong(clickX, clickY);

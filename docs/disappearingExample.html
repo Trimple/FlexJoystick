@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="FlexJoystick-min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Appearing joystick example</title>
 </head>
+
 <body>
-    <h1>hello3</h1>
+    <h1>Click anywhere!</h1>
+    <br>
+    <p style="text-align: center;">
+        Joysticks on this page work only with mouse to make the example easier.
+    </p>
+    <br>
+    <br>
+    <div id="container" style="position: absolute; width: 150px; height: 150px;">
+        <div id="exampleDiv_1"></div>
+    </div>
+
+    <script>
+        let joystick = new FlexJoystick("exampleDiv_1");
+        let joystickDiv = document.getElementById("container");
+        joystickDiv.style.opacity = "0%";
+
+        document.body.addEventListener("mousedown", function (event) {
+            document.onselectstart = () => { return false };
+            joystickDiv.style.opacity = "100%";
+            
+            joystickDiv.style.left = (event.pageX - 75) + 'px';
+            joystickDiv.style.top = (event.pageY - 75) + 'px';
+
+            joystick.handleMouseDown(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
+        }, false);
+
+        document.addEventListener("mousemove", function (event) {
+            event.pageX -= joystickDiv.offsetLeft;
+            event.pageY -= joystickDiv.offsetTop;
+            joystick.handleMouseMove(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
+        }, false);
+
+        document.addEventListener("mouseup", function (event) {
+            document.onselectstart = () => { return true };
+            joystick.handleMouseUp(event, true);
+            joystickDiv.style.opacity = "0%";
+        }, false);
+    </script>
 </body>
+
 </html>

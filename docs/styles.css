@@ -5,6 +5,10 @@
     font-family: 'Rubik One', sans-serif;
 }
 
+body{
+    min-height: 100vh;
+}
+
 h2, h1 {
     text-align: center;
     margin-top: 10px;
