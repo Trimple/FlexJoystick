@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="FlexJoystick-min.js"></script>
+    <title>Joystick movement examples</title>
+
 </head>
+
 <body>
-    <h1>hello</h1>
+    <h1>Basic example of all types of joysticks</h1>
+    <br>
+    <p style="text-align: center;">
+        Joysticks on this page work only with mouse to make the example easier.
+    </p>
+    <br>
+    <div style="display: flex; align-items: flex-start; justify-content: space-around; flex-wrap: wrap;">
+        <div class="holdingContainer">
+            <b>Simple return to zero</b><br>
+            <div id="exampleDiv_1" style="width: 150px; height: 150px;"></div>
+        </div>
+        <div class="holdingContainer">
+            <b>No return to zero</b><br>
+            <div id="exampleDiv_2" style="width: 150px; height: 150px;"></div>
+        </div>
+        <div class="holdingContainer">
+            <b>Return to zero animation</b><br>
+            <div id="exampleDiv_3" style="width: 150px; height: 150px;"></div>
+        </div>
+    </div>
+
+    <script>
+        let joystick1 = new FlexJoystick("exampleDiv_1");
+        let joystick2 = new FlexJoystick("exampleDiv_2");
+        let joystick3 = new FlexJoystick("exampleDiv_3");
+
+        document.getElementById("exampleDiv_1").addEventListener("mousedown", function (event) {
+            document.onselectstart = () => { return false };
+            joystick1.handleMouseDown(event);
+        }, false);
+
+        document.getElementById("exampleDiv_2").addEventListener("mousedown", function (event) {
+            document.onselectstart = () => { return false };
+            joystick2.handleMouseDown(event);
+        }, false);
+
+        document.getElementById("exampleDiv_3").addEventListener("mousedown", function (event) {
+            document.onselectstart = () => { return false };
+            joystick3.handleMouseDown(event);
+        }, false);
+
+        document.addEventListener("mousemove", function (event) {
+            joystick1.handleMouseMove(event);
+            joystick2.handleMouseMove(event);
+            joystick3.handleMouseMove(event);
+        }, false);
+
+        document.addEventListener("mouseup", function (event) {
+            document.onselectstart = () => { return true };
+
+            let interval = setInterval(function () {
+                joystick3.handleAnimation();
+            }, 10);
+            joystick3.enableAnimation(interval);
+
+            joystick1.handleMouseUp(event, true);
+            joystick2.handleMouseUp(event, false);
+            joystick3.handleMouseUp(event, true);
+        }, false);
+    </script>
+
 </body>
+
 </html>
