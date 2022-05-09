@@ -398,3 +398,5 @@ This is my first real JS project. I don't really have experience with both JS an
 Readme can and probably does have grammatical errors, refactoring help is super welcome.
 
 Bugs fixes and new features can be suggested using pull requests. I would really appreciate experienced look through the code with suggestions how the style and functionality can be improved.
+
+When suggesting the pull request, please make sure to minify the code and copy the minified version into docs folder.
