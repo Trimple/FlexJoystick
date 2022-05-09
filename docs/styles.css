@@ -2,22 +2,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Rubik One', sans-serif;
 }
 
-h1 {
+h2, h1 {
     text-align: center;
     margin-top: 10px;
-    margin-bottom: 20px;
 }
 
-#example_1_Div_1 {
+#exampleDiv_1 {
     position: relative;
     height: 150px;
     width: 150px;
     margin: auto;
 }
 
-#example_1_Div_2 {
+#exampleDiv_2 {
     position: relative;
     /* height: 100px;
      width: 120px; */
@@ -26,7 +26,7 @@ h1 {
     margin: auto;
 }
 
-#example_1_Div_3 {
+#exampleDiv_3 {
     position: relative;
     height: 200px;
     width: 50px;
@@ -41,4 +41,22 @@ h1 {
 .textTd {
     width: 40px;
     text-align: right;
+}
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navigationButton {
+    width: 20%;
+    min-width: 300px;
+    border-radius: 1000px;
+    background-color: #bbb;
+    color: white;
+    font-size: 20px;
+    height: 2em;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
