@@ -52,6 +52,7 @@ h2, h1 {
     width: 40px;
     text-align: right;
 }
+
 .buttonsContainer {
     display: flex;
     flex-direction: column;
