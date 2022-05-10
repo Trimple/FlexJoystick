@@ -12,10 +12,6 @@
 <body>
     <h1>Basic example of possible different styles</h1>
     <br>
-    <p style="text-align: center;">
-        Joysticks on this page work only with mouse to make the example easier.
-    </p>
-    <br>
     <br>
 
     <div style="display: flex; align-items: flex-start; justify-content: space-around; flex-wrap: wrap;">
@@ -35,7 +31,12 @@
         let joystick2 = new FlexJoystick("exampleDiv_2");
         let joystick3 = new FlexJoystick("exampleDiv_3");
 
-        // styles update
+        /****************************************************************************************/
+        /*                                                                                      */
+        /*                                     New styles                                       */
+        /*                                                                                      */
+        /****************************************************************************************/
+
         document.getElementById("exampleDiv_1Outline").style.background = "aquamarine";
         document.getElementById("exampleDiv_1Outline").style.borderRadius = "15px";
         document.getElementById("exampleDiv_1Outline").style.opacity = "70%";

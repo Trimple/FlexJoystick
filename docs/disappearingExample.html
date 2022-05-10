@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <script src="FlexJoystick-min.js"></script>
     <link rel="stylesheet" href="styles.css">
     <title>Appearing joystick example</title>
@@ -11,12 +11,6 @@
 
 <body>
     <h1>Click anywhere!</h1>
-    <br>
-    <p style="text-align: center;">
-        Joysticks on this page work only with mouse to make the example easier.
-    </p>
-    <br>
-    <br>
     <div id="container" style="position: absolute; width: 150px; height: 150px;">
         <div id="exampleDiv_1"></div>
     </div>
@@ -25,7 +19,7 @@
 
         let joystick = new FlexJoystick("exampleDiv_1");
         let joystickDiv = document.getElementById("container");
-        // joystickDiv.style.opacity = "0%";
+        joystickDiv.style.opacity = "0%";
 
         /****************************************************************************************/
         /*                                                                                      */
@@ -33,27 +27,27 @@
         /*                                                                                      */
         /****************************************************************************************/
 
-        // document.body.addEventListener("mousedown", function (event) {
-        //     document.onselectstart = () => { return false };
-        //     joystickDiv.style.opacity = "100%";
+        document.body.addEventListener("mousedown", function (event) {
+            document.onselectstart = () => { return false };
+            joystickDiv.style.opacity = "100%";
             
-        //     joystickDiv.style.left = (event.pageX - 75) + 'px';
-        //     joystickDiv.style.top = (event.pageY - 75) + 'px';
+            joystickDiv.style.left = (event.pageX - 75) + 'px';
+            joystickDiv.style.top = (event.pageY - 75) + 'px';
 
-        //     joystick.handleMouseDown(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
-        // }, false);
+            joystick.handleMouseDown(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
+        }, false);
 
-        // document.addEventListener("mousemove", function (event) {
-        //     event.pageX -= joystickDiv.offsetLeft;
-        //     event.pageY -= joystickDiv.offsetTop;
-        //     joystick.handleMouseMove(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
-        // }, false);
+        document.addEventListener("mousemove", function (event) {
+            event.pageX -= joystickDiv.offsetLeft;
+            event.pageY -= joystickDiv.offsetTop;
+            joystick.handleMouseMove(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
+        }, false);
 
-        // document.addEventListener("mouseup", function (event) {
-        //     document.onselectstart = () => { return true };
-        //     joystick.handleMouseUp(event, true);
-        //     joystickDiv.style.opacity = "0%";
-        // }, false);
+        document.addEventListener("mouseup", function (event) {
+            document.onselectstart = () => { return true };
+            joystick.handleMouseUp(event, true);
+            joystickDiv.style.opacity = "0%";
+        }, false);
 
         /****************************************************************************************/
         /*                                                                                      */
@@ -65,11 +59,11 @@
             document.onselectstart = () => {return false};
             joystickDiv.style.opacity = "100%";
 
-            let touchX = event.changedTouches[0].pageX - joystickDiv.offsetLeft;
-            let touchY = event.changedTouches[0].pageY - joystickDiv.offsetTop;
-
             joystickDiv.style.left = (event.changedTouches[0].pageX - 75) + 'px';
             joystickDiv.style.top = (event.changedTouches[0].pageY - 75) + 'px';
+
+            let touchX = event.changedTouches[0].pageX - joystickDiv.offsetLeft;
+            let touchY = event.changedTouches[0].pageY - joystickDiv.offsetTop;
 
             joystick.handleTouchStart(event, touchX, touchY);
         }, false);
@@ -82,8 +76,8 @@
         
         document.addEventListener("touchend", function(event){
             document.onselectstart = () => {return true};
-
             joystick.handleTouchEnd(event, true);
+            joystickDiv.style.opacity = "0%";
         }, false);
 
     </script>
