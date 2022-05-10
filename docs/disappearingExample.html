@@ -66,19 +66,19 @@
             let touchY = event.changedTouches[0].pageY - joystickDiv.offsetTop;
 
             joystick.handleTouchStart(event, touchX, touchY);
-        }, false);
+        }, { passive: false });
         
         document.addEventListener("touchmove", function(event){
             let touchX = event.changedTouches[0].pageX - joystickDiv.offsetLeft;
             let touchY = event.changedTouches[0].pageY - joystickDiv.offsetTop;
             joystick.handleTouchMove(event, touchX, touchY);
-        }, false);
+        }, { passive: false });
         
         document.addEventListener("touchend", function(event){
             document.onselectstart = () => {return true};
             joystick.handleTouchEnd(event, true);
             joystickDiv.style.opacity = "0%";
-        }, false);
+        }, { passive: false });
 
     </script>
 </body>
