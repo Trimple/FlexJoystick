@@ -22,31 +22,70 @@
     </div>
 
     <script>
+
         let joystick = new FlexJoystick("exampleDiv_1");
         let joystickDiv = document.getElementById("container");
-        joystickDiv.style.opacity = "0%";
+        // joystickDiv.style.opacity = "0%";
 
-        document.body.addEventListener("mousedown", function (event) {
-            document.onselectstart = () => { return false };
-            joystickDiv.style.opacity = "100%";
+        /****************************************************************************************/
+        /*                                                                                      */
+        /*                                Mouse events handlers                                 */
+        /*                                                                                      */
+        /****************************************************************************************/
+
+        // document.body.addEventListener("mousedown", function (event) {
+        //     document.onselectstart = () => { return false };
+        //     joystickDiv.style.opacity = "100%";
             
-            joystickDiv.style.left = (event.pageX - 75) + 'px';
-            joystickDiv.style.top = (event.pageY - 75) + 'px';
+        //     joystickDiv.style.left = (event.pageX - 75) + 'px';
+        //     joystickDiv.style.top = (event.pageY - 75) + 'px';
 
-            joystick.handleMouseDown(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
+        //     joystick.handleMouseDown(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
+        // }, false);
+
+        // document.addEventListener("mousemove", function (event) {
+        //     event.pageX -= joystickDiv.offsetLeft;
+        //     event.pageY -= joystickDiv.offsetTop;
+        //     joystick.handleMouseMove(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
+        // }, false);
+
+        // document.addEventListener("mouseup", function (event) {
+        //     document.onselectstart = () => { return true };
+        //     joystick.handleMouseUp(event, true);
+        //     joystickDiv.style.opacity = "0%";
+        // }, false);
+
+        /****************************************************************************************/
+        /*                                                                                      */
+        /*                                Touch events handlers                                 */
+        /*                                                                                      */
+        /****************************************************************************************/
+
+        document.body.addEventListener("touchstart", function(event){
+            document.onselectstart = () => {return false};
+            joystickDiv.style.opacity = "100%";
+
+            let touchX = event.changedTouches[0].pageX - joystickDiv.offsetLeft;
+            let touchY = event.changedTouches[0].pageY - joystickDiv.offsetTop;
+
+            joystickDiv.style.left = (event.changedTouches[0].pageX - 75) + 'px';
+            joystickDiv.style.top = (event.changedTouches[0].pageY - 75) + 'px';
+
+            joystick.handleTouchStart(event, touchX, touchY);
+        }, false);
+        
+        document.addEventListener("touchmove", function(event){
+            let touchX = event.changedTouches[0].pageX - joystickDiv.offsetLeft;
+            let touchY = event.changedTouches[0].pageY - joystickDiv.offsetTop;
+            joystick.handleTouchMove(event, touchX, touchY);
+        }, false);
+        
+        document.addEventListener("touchend", function(event){
+            document.onselectstart = () => {return true};
+
+            joystick.handleTouchEnd(event, true);
         }, false);
 
-        document.addEventListener("mousemove", function (event) {
-            event.pageX -= joystickDiv.offsetLeft;
-            event.pageY -= joystickDiv.offsetTop;
-            joystick.handleMouseMove(event, event.pageX - joystickDiv.offsetLeft, event.pageY - joystickDiv.offsetTop);
-        }, false);
-
-        document.addEventListener("mouseup", function (event) {
-            document.onselectstart = () => { return true };
-            joystick.handleMouseUp(event, true);
-            joystickDiv.style.opacity = "0%";
-        }, false);
     </script>
 </body>
 

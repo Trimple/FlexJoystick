@@ -399,4 +399,4 @@ Readme can and probably does have grammatical errors, refactoring help is super 
 
 Bugs fixes and new features can be suggested using pull requests. I would really appreciate experienced look through the code with suggestions how the style and functionality can be improved.
 
-When suggesting the pull request, please make sure to minify the code and copy the minified version into docs folder.
+When suggesting the pull request, please make sure to minify the code and copy the minified version into docs folder. This project was minified with the [MinifyAll](https://marketplace.visualstudio.com/items?itemName=josee9988.minifyall) VSCode extension with default parameters.
