@@ -54,7 +54,7 @@ class FlexJoystick {
 
         this.#updateOutlineDimensions();
 
-        this.#outlineObject.style.borderRadius = "100px";
+        this.#outlineObject.style.borderRadius = "9999px";
         this.#outlineObject.style.background = "lightgrey";
         this.#outlineObject.style.opacity = "30%";
     }
@@ -109,7 +109,7 @@ class FlexJoystick {
         this.#currentRadius = 0;
         this.#currentAngle = 0;
 
-        this.#stickObject.style.borderRadius = "1000px";
+        this.#stickObject.style.borderRadius = "9999px";
         this.#stickObject.style.background = "grey";
 
         this.#moveStick(this.#centerX, this.#centerY);
